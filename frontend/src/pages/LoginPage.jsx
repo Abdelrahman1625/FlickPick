@@ -35,7 +35,7 @@ const LoginPage = () => {
                 <input type="email"
                 className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white
                 focus:outline focus:ring'
-                placeholder='mazen@email.com'
+                placeholder='you@email.com'
                 id='email'
                 onChange={(e) => setEmail(e.target.value)}
                 />
@@ -47,7 +47,7 @@ const LoginPage = () => {
                 <input type="password"
                 className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white
                 focus:outline focus:ring'
-                placeholder='Yousri*******'
+                placeholder='*******'
                 id='password'
                 onChange={(e) => setPassword(e.target.value)}
                 />
