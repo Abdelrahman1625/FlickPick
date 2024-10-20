@@ -6,7 +6,6 @@ const SignUpPage = () => {
     const {searchParams} = new URL(document.location);
     const emailValue = searchParams.get("email");
     const [email , setEmail] = useState(emailValue || "");
-    console.log("email: " + email);
     const [username , setUsername] = useState("");
     const [password , setPassword] = useState("");
     const {signup} = useAuthStore();
@@ -38,8 +37,9 @@ const SignUpPage = () => {
                     <input type="email"
                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white
                     focus:outline focus:ring'
-                    placeholder='abdelrahman@email.com'
+                    placeholder='you@email.com'
                     id='email'
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
@@ -50,7 +50,7 @@ const SignUpPage = () => {
                     <input type="text"
                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white
                     focus:outline focus:ring'
-                    placeholder='Ahmed AbdelNasser'
+                    placeholder='John Doe'
                     id='username'
                     onChange={(e) => setUsername(e.target.value)}
                     />
@@ -62,7 +62,7 @@ const SignUpPage = () => {
                     <input type="password"
                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white
                     focus:outline focus:ring'
-                    placeholder='Joe*******'
+                    placeholder='*******'
                     id='password'
                     onChange={(e) => setPassword(e.target.value)}
                     />
