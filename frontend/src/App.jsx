@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import { Loader } from "lucide-react"
 import SearchPage from "./pages/SearchPage"
 import SearchHistoryPage from "./pages/SearchHistoryPage"
+import NotFoundPage from "./pages/NotFoundPage"
 function App() {
   const {user, isCheckingAuth,authCheck} = useAuthStore();
   useEffect(() =>{
@@ -31,6 +32,7 @@ function App() {
       <Route path = '/signup' element = {user? <Navigate to={"/"}/> : <SignUpPage/>} />
       <Route path = '/search' element = {user? <Navigate to={"/"}/> : <SearchPage/>} />
       <Route path = '/history' element = {user? <Navigate to={"/"}/> : <SearchHistoryPage/>} />
+      <Route path = '/*' element = {<NotFoundPage />} />
     </Routes>
     <Footer/>
     <Toaster/>
