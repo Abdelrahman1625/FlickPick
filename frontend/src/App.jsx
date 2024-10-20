@@ -11,18 +11,18 @@ import SearchPage from "./pages/SearchPage"
 import SearchHistoryPage from "./pages/SearchHistoryPage"
 import NotFoundPage from "./pages/NotFoundPage"
 function App() {
-  const {user, isCheckingAuth,authCheck} = useAuthStore();
-  useEffect(() =>{
+  const { user, isCheckingAuth, authCheck } = useAuthStore();
+  useEffect(() => {
     authCheck();
-  },[authCheck]);
-  if(isCheckingAuth){
-    return(
+  }, [authCheck]);
+  if (isCheckingAuth) {
+    return (
       <div className="h-screen">
         <div className="flex justify-center items-center bg-black h-full">
-          <Loader className="animate-spin text-red-600 size-10"/>
+          <Loader className="text-red-600 animate-spin size-10" />
         </div>
       </div>
-    )
+    );
   }
   return (
     <>
@@ -37,7 +37,7 @@ function App() {
     <Footer/>
     <Toaster/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
