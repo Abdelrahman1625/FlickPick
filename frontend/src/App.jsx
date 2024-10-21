@@ -30,8 +30,8 @@ function App() {
       <Route path = '/' element = {<HomePage/>} />
       <Route path = '/login' element = {user? <Navigate to={"/"}/> : <LoginPage/> } />
       <Route path = '/signup' element = {user? <Navigate to={"/"}/> : <SignUpPage/>} />
-      <Route path = '/search' element = {user? <Navigate to={"/"}/> : <SearchPage/>} />
-      <Route path = '/history' element = {user? <Navigate to={"/"}/> : <SearchHistoryPage/>} />
+      <Route path = '/search' element = {<SearchPage/>} />
+      <Route path = '/history' element = {<SearchHistoryPage/>} />
       <Route path = '/*' element = {<NotFoundPage />} />
     </Routes>
     <Footer/>

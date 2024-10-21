@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useContentStore } from "../store/content"
 import Navbar from "../components/Navbar"
-import { Search } from './../../../node_modules/mongoose/types/pipelinestage.d';
+import { Search } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -20,10 +20,11 @@ const SearchPage = () => {
         setResults([])
     }
     const handleSearch = async (e) =>{
-        e.prevent.Default();
+        e.preventDefault();
         try {
             const res = await axios.get(`/api/v1/search/${activeTab}/${searchTerm}`);
-            setResults(res.data.content)
+            console.log(res.data.data)
+            setResults(res.data.data)
         } catch (error) {
             if(error.response.status === 404){
                 toast.error("Nothing found unfortunately");
