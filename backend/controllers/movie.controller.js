@@ -1,4 +1,5 @@
 import { fetchFromTMDB } from "../services/tmdb.service.js";
+import { useContentStore } from "../../frontend/src/store/content.js";
 
 export async function getTrendingMovies(req, res) {
   try {
@@ -79,14 +80,27 @@ export async function getMoviesByTopRated(req, res) {
   }
 }
 export async function getMovieByGenre(req, res) {
-  const { genre } = req.params;
+  const { genre, contentType } = req.params;
   const genreDic = {
-    action: 28,
-    drama: 18,
-    comedy: 35,
-    fantasy: 14,
-    animation: 16,
-    documentary: 99,
+    Action: 28,
+    Adventure: 12,
+    Animation: 16,
+    Comedy: 35,
+    Crime: 80,
+    Documentary: 99,
+    Drama: 18,
+    Family: 10751,
+    Fantasy: 14,
+    History: 36,
+    Horror: 27,
+    Music: 10402,
+    Mystery: 9648,
+    Romance: 10749,
+    "Science Fiction": 878,
+    "TV Movie": 10770,
+    Thriller: 53,
+    War: 10752,
+    Western: 37,
   };
   try {
     const data = await fetchFromTMDB(

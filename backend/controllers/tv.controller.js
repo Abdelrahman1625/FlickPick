@@ -79,3 +79,39 @@ export async function getTvByTopRated(req, res) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 }
+
+export async function getTvByGenre(req, res) {
+  const { genre, contentType } = req.params;
+  const genreDic = {
+    "Action & Adventure": 10759,
+    Animation: 16,
+    Comedy: 35,
+    Crime: 80,
+    Documentary: 99,
+    Drama: 18,
+    Family: 10751,
+    Kids: 10762,
+    Mystery: 9648,
+    News: 10763,
+    Reality: 10764,
+    "Sci-Fi & Fantasy": 10765,
+    Soap: 10766,
+    Talk: 10767,
+    "War & Politics": 10768,
+    Western: 37,
+  };
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreDic[genre]}`
+    );
+    res.json({ success: true, similar: data });
+  } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).send(null);
+    }
+    res.status(500).json({
+      success: false,
+      message: "Internal server error " + error.message,
+    });
+  }
+}

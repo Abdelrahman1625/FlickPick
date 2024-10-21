@@ -19,13 +19,44 @@ const MovieSlider = ({ category }) => {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await axios.get(`/api/v1/${contentType}/${category}`);
-      const resAction = await axios.get(`/api/v1/movie/genre/action`);
-      const resComedy = await axios.get(`/api/v1/movie/genre/comedy`);
-      const resFantasy = await axios.get(`/api/v1/movie/genre/fantasy`);
-      const resDocumentary = await axios.get(`/api/v1/movie/genre/documentary`);
-
-      setContent(res.data.content);
+      if (
+        [
+          "Action & Adventure",
+          "Action",
+          "Science Fiction",
+          "Horror",
+          "Western",
+          "TV Movie",
+          "Thriller",
+          "Romance",
+          "Animation",
+          "Comedy",
+          "War",
+          "Crime",
+          "Documentary",
+          "Drama",
+          "Family",
+          "Kids",
+          "Mystery",
+          "News",
+          "Reality",
+          "Sci-Fi & Fantasy",
+          "Soap",
+          "Talk",
+          "Music",
+          "History",
+          "Fantasy",
+          "Adventure",
+          "War & Politics",
+        ].includes(category)
+      ) {
+        console.log(contentType);
+        const res = await axios.get(`/api/v1/${contentType}/genre/${category}`);
+        setContent(res.data.similar.results);
+      } else {
+        const res = await axios.get(`/api/v1/${contentType}/${category}`);
+        setContent(res.data.content);
+      }
     };
 
     getContent();
