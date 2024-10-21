@@ -8,8 +8,8 @@ export const MOVIE_CATEGORIES = [
   "upcoming",
 ];
 export const TV_CATEGORIES = [
+  "top_rated",
   "airing_today",
   "on_the_air",
   "popular",
-  "top_rated",
 ];

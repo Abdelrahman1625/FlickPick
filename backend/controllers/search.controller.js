@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import { fetchFromTMDB } from "../services/tmdb.service.js";
 
 export async function searchPerson(req, res) {
-  const {query} = req.params;
+  const { query } = req.params;
   try {
     const response = await fetchFromTMDB(
       `https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`
@@ -32,7 +32,7 @@ export async function searchPerson(req, res) {
 }
 
 export async function searchMovie(req, res) {
-  const {query} = req.params;
+  const { query } = req.params;
   try {
     const response = await fetchFromTMDB(
       `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`
@@ -63,7 +63,7 @@ export async function searchMovie(req, res) {
 
 export async function searchTv(req, res) {
   try {
-    const {query} = req.params;
+    const { query } = req.params;
     const response = await fetchFromTMDB(
       `https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=false&language=en-US&page=1`
     );
@@ -106,16 +106,14 @@ export async function deleteItemFromSearchHistory(req, res) {
   try {
     await User.findByIdAndUpdate(req.user._id, {
       $pull: {
-        searchHistory: { _id: id },
+        searchHistory: { id: id },
       },
     });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Item removed from search history successfully",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Item removed from search history successfully",
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }

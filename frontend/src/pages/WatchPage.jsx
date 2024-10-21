@@ -40,7 +40,6 @@ const WatchPage = () => {
       try {
         const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
         setSimilarContent(res.data.content);
-
       } catch (error) {
         if (error.message.includes("404")) {
           setSimilarContent([]);
@@ -55,6 +54,7 @@ const WatchPage = () => {
     const getContentDetails = async () => {
       try {
         const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+        console.log(res.data.content);
         setContent(res.data.content);
       } catch (error) {
         if (error.message.includes("404")) {
@@ -93,18 +93,18 @@ const WatchPage = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-black p-10">
+      <div className="bg-black p-10 min-h-screen">
         <WatchPageSkeleton />
       </div>
     );
 
   if (!content) {
     return (
-      <div className="bg-black text-white h-screen">
-        <div className="max-w-6xl mx-auto">
+      <div className="bg-black h-screen text-white">
+        <div className="mx-auto max-w-6xl">
           <Navbar />
-          <div className="text-center mx-auto px-4 py-8 h-full mt-40">
-            <h2 className="text-2xl sm:text-5xl font-bold text-balance">
+          <div className="mx-auto mt-40 px-4 py-8 h-full text-center">
+            <h2 className="font-bold text-2xl text-balance sm:text-5xl">
               Content not found 😥
             </h2>
           </div>
@@ -115,7 +115,7 @@ const WatchPage = () => {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      <div className="mx-auto container px-4 py-8 h-full">
+      <div className="mx-auto px-4 py-0 h-full container">
         <Navbar />
 
         {trailers.length > 0 && (
@@ -148,19 +148,19 @@ const WatchPage = () => {
           </div>
         )}
 
-        <div className="aspect-video mb-8 p-2 sm:px-10 md:px-32">
+        <div className="mb-8 sm:px-10 md:px-32 p-2">
           {trailers.length > 0 && (
             <ReactPlayer
               controls={true}
               width={"100%"}
               height={"70vh"}
-              className="mx-auto overflow-hidden rounded-lg"
+              className="mx-auto rounded-lg overflow-hidden aspect-video"
               url={`https://www.youtube.com/watch?v=${trailers[currentTrailerIdx].key}`}
             />
           )}
 
           {trailers?.length === 0 && (
-            <h2 className="text-xl text-center mt-5">
+            <h2 className="mt-10 text-center text-xl">
               No trailers available for{" "}
               <span className="font-bold text-red-600">
                 {content?.title || content?.name}
@@ -171,15 +171,11 @@ const WatchPage = () => {
         </div>
 
         {/* movie details */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-between gap-20 
-				max-w-6xl mx-auto"
-        >
+        <div className="flex md:flex-row flex-col justify-between items-center gap-20 mx-auto max-w-6xl">
           <div className="mb-4 md:mb-0">
-            <h2 className="text-5xl font-bold text-balance">
+            <h2 className="font-bold text-5xl text-balance">
               {content?.title || content?.name}
             </h2>
-
             <p className="mt-2 text-lg">
               {formatReleaseDate(
                 content?.release_date || content?.first_air_date
@@ -190,22 +186,33 @@ const WatchPage = () => {
               ) : (
                 <span className="text-green-600">PG-13</span>
               )}{" "}
+              | {content.vote_average.toFixed(1)} ⭐️
+            </p>
+            <p className="mt-2 text-2xl">
+              {" "}
+              Genre:{" "}
+              {content?.genres.length > 1
+                ? content?.genres.map((genre) => genre.name).join(", ")
+                : content?.genres[0].name}
+            </p>{" "}
+            <p>
+              Producer: {content?.production_companies[0]?.name || "Unknown"}
             </p>
             <p className="mt-4 text-lg">{content?.overview}</p>
           </div>
           <img
             src={ORIGINAL_IMG_BASE_URL + content?.poster_path}
             alt="Poster image"
-            className="max-h-[600px] rounded-md"
+            className="rounded-md max-h-[600px]"
           />
         </div>
 
         {similarContent.length > 0 && (
-          <div className="mt-12 max-w-5xl mx-auto relative">
-            <h3 className="text-3xl font-bold mb-4">Similar Movies/Tv Show</h3>
+          <div className="relative mx-auto mt-12 max-w-5xl">
+            <h3 className="mb-4 font-bold text-3xl">Similar Movies/Tv Show</h3>
 
             <div
-              className="flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group"
+              className="flex gap-4 pb-4 overflow-x-scroll group scrollbar-hide"
               ref={sliderRef}
             >
               {similarContent.map((content) => {
@@ -214,14 +221,14 @@ const WatchPage = () => {
                   <Link
                     key={content.id}
                     to={`/watch/${content.id}`}
-                    className="w-52 flex-none"
+                    className="flex-none w-52"
                   >
                     <img
                       src={SMALL_IMG_BASE_URL + content.poster_path}
                       alt="Poster path"
-                      className="w-full h-auto rounded-md"
+                      className="rounded-md w-full h-auto"
                     />
-                    <h4 className="mt-2 text-lg font-semibold">
+                    <h4 className="mt-2 font-semibold text-lg">
                       {content.title || content.name}
                     </h4>
                   </Link>
@@ -229,15 +236,11 @@ const WatchPage = () => {
               })}
 
               <ChevronRight
-                className="absolute top-1/2 -translate-y-1/2 right-2 w-8 h-8
-										opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer
-										 bg-red-600 text-white rounded-full"
+                className="top-1/2 right-2 absolute bg-red-600 opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
                 onClick={scrollRight}
               />
               <ChevronLeft
-                className="absolute top-1/2 -translate-y-1/2 left-2 w-8 h-8 opacity-0 
-								group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600 
-								text-white rounded-full"
+                className="top-1/2 left-2 absolute bg-red-600 opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
                 onClick={scrollLeft}
               />
             </div>

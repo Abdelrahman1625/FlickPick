@@ -78,3 +78,28 @@ export async function getMoviesByTopRated(req, res) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 }
+export async function getMovieByGenre(req, res) {
+  const { genre } = req.params;
+  const genreDic = {
+    action: 28,
+    drama: 18,
+    comedy: 35,
+    fantasy: 14,
+    animation: 16,
+    documentary: 99,
+  };
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreDic[genre]}`
+    );
+    res.json({ success: true, similar: data });
+  } catch (error) {
+    if (error.message.includes("404")) {
+      return res.status(404).send(null);
+    }
+    res.status(500).json({
+      success: false,
+      message: "Internal server error " + error.message,
+    });
+  }
+}

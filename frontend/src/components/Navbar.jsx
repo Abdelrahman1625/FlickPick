@@ -13,14 +13,10 @@ const Navbar = () => {
   const { setContentType } = useContentStore();
 
   return (
-    <header className="flex flex-wrap justify-between items-center mx-auto p-4 max-w-6xl h-20">
+    <header className="flex flex-wrap justify-between items-center mx-auto px-4 max-w-6xl h-20">
       <div className="z-50 flex items-center gap-10">
         <Link to="/">
-          <img
-            src="/netflix-logo.png"
-            alt="Netflix Logo"
-            className="w-32 sm:w-40"
-          />
+          <img src="/flickpick.png" alt="Logo" className="w-32 sm:w-64" />
         </Link>
 
         {/* desktop navbar items */}
