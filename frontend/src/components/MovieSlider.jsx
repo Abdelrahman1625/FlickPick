@@ -16,7 +16,6 @@ const MovieSlider = ({ category }) => {
     category.replaceAll("_", " ")[0].toUpperCase() +
     category.replaceAll("_", " ").slice(1);
   const formattedContentType = contentType === "movie" ? "Movies" : "TV Shows";
-
   useEffect(() => {
     const getContent = async () => {
       if (
@@ -50,8 +49,8 @@ const MovieSlider = ({ category }) => {
           "War & Politics",
         ].includes(category)
       ) {
-        console.log(contentType);
         const res = await axios.get(`/api/v1/${contentType}/genre/${category}`);
+        console.log(res)
         setContent(res.data.similar.results);
       } else {
         const res = await axios.get(`/api/v1/${contentType}/${category}`);

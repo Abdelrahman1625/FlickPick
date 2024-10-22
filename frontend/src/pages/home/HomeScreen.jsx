@@ -15,7 +15,6 @@ const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
   const { contentType } = useContentStore();
   const [imgLoading, setImgLoading] = useState(true);
-
   if (!trendingContent)
     return (
       <div className="relative h-screen text-white">
@@ -23,6 +22,7 @@ const HomeScreen = () => {
         <div className="top-0 left-0 -z-10 absolute flex justify-center items-center bg-black/70 w-full h-full shimmer" />
       </div>
     );
+    console.log(contentType)
 
   return (
     <>
@@ -91,7 +91,8 @@ const HomeScreen = () => {
       <div className="flex flex-col gap-10 bg-black py-10">
         {contentType === "movie"
           ? MOVIE_CATEGORIES.map((category) => (
-              <MovieSlider key={category} category={category} />
+              <MovieSlider key={category} category={category}
+              />
             ))
           : TV_CATEGORIES.map((category) => (
               <MovieSlider key={category} category={category} />
