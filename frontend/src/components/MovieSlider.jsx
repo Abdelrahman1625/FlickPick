@@ -50,8 +50,13 @@ const MovieSlider = ({ category }) => {
         ].includes(category)
       ) {
         const res = await axios.get(`/api/v1/${contentType}/genre/${category}`);
-        console.log(res)
-        setContent(res.data.similar.results);
+        if(category === "Animation" ){
+          const excludedIds = [95897, 78501, 70998,99466 , 90388];
+          setContent(res.data.similar.results.filter(content => !excludedIds.includes(content.id)))
+        }
+        else{
+          setContent(res.data.similar.results);
+        }
       } else {
         const res = await axios.get(`/api/v1/${contentType}/${category}`);
         setContent(res.data.content);
