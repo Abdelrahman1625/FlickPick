@@ -54,7 +54,7 @@ const WatchPage = () => {
     const getContentDetails = async () => {
       try {
         const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
-        console.log(res.data.content);
+        // console.log(res.data);
         setContent(res.data.content);
       } catch (error) {
         if (error.message.includes("404")) {
@@ -190,13 +190,24 @@ const WatchPage = () => {
             </p>
             <p className="mt-2 text-2xl">
               {" "}
-              Genre:{" "}
               {content?.genres.length > 1
                 ? content?.genres.map((genre) => genre.name).join(", ")
                 : content?.genres[0].name}
             </p>{" "}
             <p>
               Producer: {content?.production_companies[0]?.name || "Unknown"}
+            </p>
+            <p>
+              Languages:{" "}
+              {content?.spoken_languages.length > 1
+                ? content?.spoken_languages.map((lang) => lang.name).join(", ")
+                : content?.spoken_languages[0].name}
+            </p>
+            <p>
+              Countries:{" "}
+              {content?.production_countries.length > 1
+                ? content?.production_countries.map((c) => c.name).join(", ")
+                : content?.production_countries[0].name}
             </p>
             <p className="mt-4 text-lg">{content?.overview}</p>
           </div>

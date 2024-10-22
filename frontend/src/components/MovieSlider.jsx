@@ -50,11 +50,14 @@ const MovieSlider = ({ category }) => {
         ].includes(category)
       ) {
         const res = await axios.get(`/api/v1/${contentType}/genre/${category}`);
-        if(category === "Animation" ){
-          const excludedIds = [95897, 78501, 70998,99466 , 90388];
-          setContent(res.data.similar.results.filter(content => !excludedIds.includes(content.id)))
-        }
-        else{
+        if (category === "Animation") {
+          const excludedIds = [95897, 78501, 70998, 99466, 90388];
+          setContent(
+            res.data.similar.results.filter(
+              (content) => !excludedIds.includes(content.id)
+            )
+          );
+        } else {
           setContent(res.data.similar.results);
         }
       } else {
@@ -109,6 +112,15 @@ const MovieSlider = ({ category }) => {
               />
             </div>
             <p className="mt-2 text-center">{item.title || item.name}</p>
+            <p className="text-center">
+              {item?.adult ? (
+                <span className="text-red-600">18+</span>
+              ) : (
+                <span className="text-green-600">PG-13</span>
+              )}
+              {" | "}
+              {item.vote_average.toFixed(1)} ⭐
+            </p>
           </Link>
         ))}
       </div>
