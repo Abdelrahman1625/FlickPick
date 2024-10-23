@@ -1,7 +1,9 @@
 import { User } from "../models/user.model.js";
 export async function getFavorites(req, res) {
+  const { id } = req.body;
   try {
     const user = await User.findById(req.user._id);
+
     res.status(200).json({ success: true, data: user.favorites });
   } catch (error) {
     console.log("Error in getFavorites controller: ", error.message);
@@ -9,7 +11,7 @@ export async function getFavorites(req, res) {
   }
 }
 export async function addFavorite(req, res) {
-  const { id } = req.body;
+  const { id, content } = req.body;
   const user = User.findByIdAndUpdate(req.user._id);
   const exists = user.favorites?.some((item) => item.id === id);
   try {
@@ -17,7 +19,7 @@ export async function addFavorite(req, res) {
       req.user._id,
       {
         $addToSet: {
-          favorites: { id },
+          favorites: { id, content },
         },
       },
       { new: true }
@@ -30,13 +32,13 @@ export async function addFavorite(req, res) {
   }
 }
 export async function removeFavorite(req, res) {
-  const { id } = req.body;
+  const { id, content } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
       req.user._id,
       {
         $pull: {
-          favorites: { id },
+          favorites: { id, content },
         },
       },
       { new: true }
