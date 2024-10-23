@@ -3,12 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { useContentStore } from "../store/content";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, FolderHeart } from "lucide-react";
 import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
 import toast from "react-hot-toast";
+import { Heart } from "lucide-react";
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const WatchPage = () => {
   const [content, setContent] = useState({});
   const [similarContent, setSimilarContent] = useState([]);
   const { contentType } = useContentStore();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const sliderRef = useRef(null);
 
@@ -107,6 +109,19 @@ const WatchPage = () => {
     getFavorites();
   }, []);
 
+  useEffect(() => {
+    const getFavorites = async () => {
+      try {
+        const res = await axios.get(`/api/v1/person/favorites`);
+        const isFavorite = res.data.data.some((item) => item.id === id);
+        setIsFavorite(isFavorite);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getFavorites();
+  }, []);
+
   const handleFavorite = async () => {
     try {
       // Fetch current favorites
@@ -116,12 +131,14 @@ const WatchPage = () => {
       const isFavorite = res.data.data.some((item) => item.id === id);
 
       if (isFavorite) {
+        setIsFavorite(false);
         // Remove from favorites
         const deleteRes = await axios.delete(`/api/v1/person/favorites/${id}`);
         if (deleteRes.status === 200) {
           toast.error("Removed from favorites");
         }
       } else {
+        setIsFavorite(true);
         // Add to favorites
         const postRes = await axios.post(`/api/v1/person/favorites/${id}`, {
           id,
@@ -222,9 +239,11 @@ const WatchPage = () => {
               {content?.title || content?.name}
               <span
                 onClick={handleFavorite}
-                className="opacity-70 hover:opacity-100 ml-4 transition-all ease-linear cursor-pointer"
+                className={`${
+                  !isFavorite ? "opacity-70 hover:opacity-100" : "opacity-100"
+                } ml-4 transition-all ease-linear cursor-pointer`}
               >
-                💖
+                <Heart size={32} className="inline text-[red]" fill="red" />
               </span>
             </h2>
             <p className="mt-2 text-lg">
