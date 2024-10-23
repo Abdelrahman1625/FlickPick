@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { useContentStore } from "../store/content";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, FolderHeart } from "lucide-react";
 import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
+import toast from "react-hot-toast";
+import { Heart } from "lucide-react";
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -17,6 +19,7 @@ const WatchPage = () => {
   const [content, setContent] = useState({});
   const [similarContent, setSimilarContent] = useState([]);
   const { contentType } = useContentStore();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const sliderRef = useRef(null);
 
@@ -90,6 +93,69 @@ const WatchPage = () => {
         behavior: "smooth",
       });
   };
+  useEffect(() => {
+    const getFavorites = async () => {
+      try {
+        const res = await axios.get(`/api/v1/person/favorites`);
+        // console.log(res.data);
+      } catch (error) {
+        if (error.response.status === 404) {
+          toast.error("Nothing found unfortunately");
+        } else {
+          toast.error("An error occurred, please try again later");
+        }
+      }
+    };
+    getFavorites();
+  }, []);
+
+  useEffect(() => {
+    const getFavorites = async () => {
+      try {
+        const res = await axios.get(`/api/v1/person/favorites`);
+        const isFavorite = res.data.data.some((item) => item.id === id);
+        setIsFavorite(isFavorite);
+        console.log(res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getFavorites();
+  }, []);
+
+  const handleFavorite = async () => {
+    try {
+      // Fetch current favorites
+      const res = await axios.get(`/api/v1/person/favorites`);
+
+      // Check if the item exists in favorites
+      const isFavorite = res.data.data.some((item) => item.id === id);
+
+      if (isFavorite) {
+        setIsFavorite(false);
+        // Remove from favorites
+        const deleteRes = await axios.delete(`/api/v1/person/favorites/${id}`);
+        if (deleteRes.status === 200) {
+          toast.error("Removed from favorites");
+        }
+      } else {
+        setIsFavorite(true);
+        // Add to favorites
+        const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+
+        const postRes = await axios.post(`/api/v1/person/favorites/${id}`, {
+          id,
+          content: res.data.content,
+        });
+        if (postRes.status === 200) {
+          toast.success("Added to favorites");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred. Please try again.");
+    }
+  };
 
   if (loading)
     return (
@@ -148,7 +214,7 @@ const WatchPage = () => {
           </div>
         )}
 
-        <div className="mb-8 sm:px-10 md:px-32 p-2">
+        <div className="mb-4 sm:px-10 md:px-32 p-2">
           {trailers.length > 0 && (
             <ReactPlayer
               controls={true}
@@ -171,10 +237,25 @@ const WatchPage = () => {
         </div>
 
         {/* movie details */}
-        <div className="flex md:flex-row flex-col justify-between items-center gap-20 mx-auto max-w-6xl">
+        {/* {console.log(content)} */}
+        <div className="flex md:flex-row flex-col justify-between gap-20 mx-auto max-w-6xl">
           <div className="mb-4 md:mb-0">
             <h2 className="font-bold text-5xl text-balance">
               {content?.title || content?.name}
+              <span
+                onClick={handleFavorite}
+                className={`${
+                  !isFavorite ? "opacity-70 hover:opacity-100" : "opacity-100"
+                } ml-3 transition-all ease-in cursor-pointer`}
+              >
+                <Heart
+                  size={48}
+                  className={`inline ${
+                    isFavorite ? "text-[red]" : "text-white"
+                  }`}
+                  fill={isFavorite ? "red" : "white"}
+                />
+              </span>
             </h2>
             <p className="mt-2 text-lg">
               {formatReleaseDate(
@@ -209,7 +290,7 @@ const WatchPage = () => {
                 ? content?.production_countries.map((c) => c.name).join(", ")
                 : content?.production_countries[0].name}
             </p>
-            <p className="mt-4 text-lg">{content?.overview}</p>
+            <p className="mt-4 text-2xl italic">{content?.overview}</p>
           </div>
           <img
             src={ORIGINAL_IMG_BASE_URL + content?.poster_path}
@@ -219,7 +300,7 @@ const WatchPage = () => {
         </div>
 
         {similarContent.length > 0 && (
-          <div className="relative mx-auto mt-12 max-w-5xl">
+          <div className="relative mx-auto mt-4 max-w-5xl">
             <h3 className="mb-4 font-bold text-3xl">Similar Movies/Tv Show</h3>
 
             <div

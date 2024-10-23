@@ -11,6 +11,7 @@ import SearchPage from "./pages/SearchPage"
 import SearchHistoryPage from "./pages/SearchHistoryPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import WatchPage from "./pages/WatchPage";
+import FavouritePage from "./pages/FavoritePage";
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
       <Route path = '/signup' element = {user? <Navigate to={"/"}/> : <SignUpPage/>} />
       <Route path = '/search' element = {<SearchPage/>} />
       <Route path = '/history' element = {<SearchHistoryPage/>} />
+      <Route path = '/favorites' element = {<FavouritePage/>} />
       <Route path = '/*' element = {<NotFoundPage />} />
       <Route
           path="/watch/:id"

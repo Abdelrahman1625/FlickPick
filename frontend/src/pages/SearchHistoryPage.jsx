@@ -39,7 +39,7 @@ function SearchHistoryPage() {
     const getSearchHistory = async () => {
       try {
         const res = await axios.get(`/api/v1/search/history`);
-        // console.log(res.data.content);
+        console.log(res.data);
         setSearchHistory(res.data.content);
       } catch (error) {
         console.log(error.message);

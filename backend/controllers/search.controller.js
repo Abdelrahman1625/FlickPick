@@ -11,18 +11,30 @@ export async function searchPerson(req, res) {
     if (response.results.length === 0) {
       return res.status(404).send(null);
     }
+    const searchResult = {
+      id: response.results[0].id,
+      image: response.results[0].profile_path,
+      title: response.results[0].name,
+    };
 
-    await User.findByIdAndUpdate(req.user._id, {
-      $push: {
-        searchHistory: {
-          id: response.results[0].id,
-          image: response.results[0].profile_path,
-          title: response.results[0].name,
-          searchType: "person",
-          createdAt: new Date(),
+    const user = await User.findByIdAndUpdate(req.user._id);
+    const exists = user.searchHistory.some(
+      (item) => item.id === searchResult.id
+    );
+
+    if (!exists) {
+      await User.findByIdAndUpdate(req.user._id, {
+        $addToSet: {
+          searchHistory: {
+            id: response.results[0].id,
+            image: response.results[0].profile_path,
+            title: response.results[0].name,
+            searchType: "person",
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({ success: true, data: response.results });
   } catch (error) {
@@ -42,17 +54,30 @@ export async function searchMovie(req, res) {
       return res.status(404).send(null);
     }
 
-    await User.findByIdAndUpdate(req.user._id, {
-      $push: {
-        searchHistory: {
-          id: response.results[0].id,
-          image: response.results[0].poster_path,
-          title: response.results[0].title,
-          searchType: "movie",
-          createdAt: new Date(),
+    const user = await User.findByIdAndUpdate(req.user._id);
+    const searchResult = {
+      id: response.results[0].id,
+      image: response.results[0].profile_path,
+      title: response.results[0].name,
+    };
+
+    const exists = user.searchHistory.some(
+      (item) => item.id === searchResult.id
+    );
+
+    if (!exists) {
+      await User.findByIdAndUpdate(req.user._id, {
+        $addToSet: {
+          searchHistory: {
+            id: response.results[0].id,
+            image: response.results[0].poster_path,
+            title: response.results[0].title,
+            searchType: "movie",
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({ success: true, data: response.results });
   } catch (error) {
@@ -72,17 +97,30 @@ export async function searchTv(req, res) {
       return res.status(404).send(null);
     }
 
-    await User.findByIdAndUpdate(req.user._id, {
-      $push: {
-        searchHistory: {
-          id: response.results[0].id,
-          image: response.results[0].poster_path,
-          title: response.results[0].name,
-          searchType: "tv",
-          createdAt: new Date(),
+    const user = await User.findByIdAndUpdate(req.user._id);
+    const searchResult = {
+      id: response.results[0].id,
+      image: response.results[0].profile_path,
+      title: response.results[0].name,
+    };
+
+    const exists = user.searchHistory.some(
+      (item) => item.id === searchResult.id
+    );
+
+    if (!exists) {
+      await User.findByIdAndUpdate(req.user._id, {
+        $addToSet: {
+          searchHistory: {
+            id: response.results[0].id,
+            image: response.results[0].poster_path,
+            title: response.results[0].name,
+            searchType: "tv",
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({ success: true, data: response.results });
   } catch (error) {
