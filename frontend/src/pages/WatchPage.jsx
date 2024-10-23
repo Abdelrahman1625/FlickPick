@@ -8,6 +8,7 @@ import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
+import toast from "react-hot-toast";
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -89,6 +90,46 @@ const WatchPage = () => {
         left: sliderRef.current.offsetWidth,
         behavior: "smooth",
       });
+  };
+  useEffect(() => {
+    const getFavorites = async () => {
+      try {
+        const res = await axios.get(`/api/v1/person/favorites`);
+        console.log(res.data);
+      } catch (error) {
+        if (error.response.status === 404) {
+          toast.error("Nothing found unfortunately");
+        } else {
+          toast.error("An error occurred, please try again later");
+        }
+      }
+    };
+    getFavorites();
+  }, []);
+
+  const handleFavorite = async () => {
+    try {
+      // const res = await axios.delete(`/api/v1/person/favorites/${id}`, {
+      //   id: id,
+      // });
+      const res = await axios.get(`/api/v1/person/favorites`, {});
+      // Checks if id exists in favorites
+      if (res.data.data.forEach((item) => item.id === id)) {
+        const res = await axios.delete(`/api/v1/person/favorites/${id}`, {
+          id: id,
+        });
+        if (res.status === 200) {
+          toast.error("Removed from favorites");
+        }
+      } else {
+        const res = await axios.post(`/api/v1/person/favorites/${id}`, {
+          id: id,
+        });
+        toast.success("Added to favorites");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (loading)
@@ -175,6 +216,12 @@ const WatchPage = () => {
           <div className="mb-4 md:mb-0">
             <h2 className="font-bold text-5xl text-balance">
               {content?.title || content?.name}
+              <span
+                onClick={handleFavorite}
+                className="opacity-70 hover:opacity-100 ml-4 transition-all ease-linear cursor-pointer"
+              >
+                💖
+              </span>
             </h2>
             <p className="mt-2 text-lg">
               {formatReleaseDate(

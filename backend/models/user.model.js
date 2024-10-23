@@ -22,6 +22,10 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  favorites: {
+    type: Array,
+    default: [],
+  },
 });
 
 export const User = mongoose.model("User", userSchema);
