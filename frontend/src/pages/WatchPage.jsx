@@ -109,26 +109,30 @@ const WatchPage = () => {
 
   const handleFavorite = async () => {
     try {
-      // const res = await axios.delete(`/api/v1/person/favorites/${id}`, {
-      //   id: id,
-      // });
-      const res = await axios.get(`/api/v1/person/favorites`, {});
-      // Checks if id exists in favorites
-      if (res.data.data.forEach((item) => item.id === id)) {
-        const res = await axios.delete(`/api/v1/person/favorites/${id}`, {
-          id: id,
-        });
-        if (res.status === 200) {
+      // Fetch current favorites
+      const res = await axios.get(`/api/v1/person/favorites`);
+
+      // Check if the item exists in favorites
+      const isFavorite = res.data.data.some((item) => item.id === id);
+
+      if (isFavorite) {
+        // Remove from favorites
+        const deleteRes = await axios.delete(`/api/v1/person/favorites/${id}`);
+        if (deleteRes.status === 200) {
           toast.error("Removed from favorites");
         }
       } else {
-        const res = await axios.post(`/api/v1/person/favorites/${id}`, {
-          id: id,
+        // Add to favorites
+        const postRes = await axios.post(`/api/v1/person/favorites/${id}`, {
+          id,
         });
-        toast.success("Added to favorites");
+        if (postRes.status === 200) {
+          toast.success("Added to favorites");
+        }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
