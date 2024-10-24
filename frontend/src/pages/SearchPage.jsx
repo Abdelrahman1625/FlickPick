@@ -33,7 +33,7 @@ const SearchPage = () => {
     }
   };
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-[#003245] min-h-screen text-white">
       <Navbar />
       <div className="mx-auto px-4 py-12 container">
         <div className="flex justify-center gap-3 mb-4">

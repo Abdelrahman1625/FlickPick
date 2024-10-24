@@ -59,7 +59,7 @@ function FavoritePage() {
     } , []);
     if (favorite.length === 0) {
         return (
-            <div className="bg-black min-h-screen text-white">
+            <div className="bg-[#003245] min-h-screen text-white">
                 <Navbar />
                 <div className="mx-auto px-4 py-8 max-w-6xl">
                 <h1 className="mt-5 mb-8 font-bold text-3xl">Favorites</h1>
@@ -71,7 +71,7 @@ function FavoritePage() {
             );
         }
     return (
-        <div className="bg-black min-h-screen text-white">
+        <div className="bg-[#003245] min-h-screen text-white">
             <Navbar/>
             <div className="mx-auto px-4 py-8 max-w-6xl">
             <h1 className="mt-5 mb-8 font-bold text-3xl">Favorites</h1>

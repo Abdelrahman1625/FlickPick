@@ -86,7 +86,7 @@ const MovieSlider = ({ category }) => {
 
   return (
     <div
-      className="relative bg-black px-5 md:px-20 text-white"
+      className="relative bg-[#022837] px-5 md:px-20 text-white"
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
@@ -128,14 +128,14 @@ const MovieSlider = ({ category }) => {
       {showArrows && (
         <>
           <button
-            className="top-1/2 left-5 md:left-24 z-10 absolute flex justify-center items-center bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full text-white -translate-y-1/2 size-12"
+            className="top-1/2 left-5 md:left-24 z-10 absolute flex justify-center items-center bg-[#003245] bg-opacity-50 hover:bg-opacity-75 rounded-full text-white -translate-y-1/2 size-12"
             onClick={scrollLeft}
           >
             <ChevronLeft size={24} />
           </button>
 
           <button
-            className="top-1/2 right-5 md:right-24 z-10 absolute flex justify-center items-center bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full text-white -translate-y-1/2 size-12"
+            className="top-1/2 right-5 md:right-24 z-10 absolute flex justify-center items-center bg-[#003245] bg-opacity-50 hover:bg-opacity-75 rounded-full text-white -translate-y-1/2 size-12"
             onClick={scrollRight}
           >
             <ChevronRight size={24} />
