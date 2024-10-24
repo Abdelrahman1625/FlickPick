@@ -98,7 +98,7 @@ function FavoritePage() {
                                 </span>
                             </div>
                             <X
-                                className="translate-y-[-20px] ml-4 hover:text-red-600 cursor-pointer size-20 hover:fill-red-600"
+                                className="translate-y-[-20px] ml-4 hover:text-red-600 cursor-pointer size-20 hover:fill-red-600 "
                                 onClick={() => handleDelete(entry)}
                             />
                         </div>

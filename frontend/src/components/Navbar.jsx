@@ -39,7 +39,7 @@ const Navbar = () => {
             to="/favorites"
             className="hover:underline"
           >
-            Tv Shows
+            Favorites
           </Link>
           <Link to="/history" className="hover:underline">
             Search History
@@ -56,7 +56,9 @@ const Navbar = () => {
           alt="Avatar"
           className="rounded h-8 cursor-pointer"
         />
-        <LogOut className="cursor-pointer size-6" onClick={logout} />
+        <Link to={"/"}>
+          <LogOut className="cursor-pointer size-6" onClick={logout} />
+        </Link>
         <div className="sm:hidden">
           <Menu className="cursor-pointer size-6" onClick={toggleMobileMenu} />
         </div>
@@ -64,7 +66,7 @@ const Navbar = () => {
 
       {/* mobile navbar items */}
       {isMobileMenuOpen && (
-        <div className="z-50 border-gray-800 sm:hidden bg-black mt-4 border rounded w-full">
+        <div className="z-50 top-20 left-0 absolute bg-opacity-95 border-gray-800 sm:hidden bg-black mt-4 border rounded w-full">
           <Link
             to={"/"}
             className="block p-2 hover:underline"
@@ -78,6 +80,13 @@ const Navbar = () => {
             onClick={() => {setContentType("tv"); toggleMobileMenu;}}
           >
             Tv Shows
+          </Link>
+          <Link
+            to="/favorites"
+            className="block p-2 hover:underline"
+            onClick={toggleMobileMenu}
+          >
+            Favorites
           </Link>
           <Link
             to={"/history"}
