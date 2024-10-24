@@ -115,10 +115,12 @@ function SearchHistoryPage() {
                   {entry.searchType[0].toUpperCase() +
                     entry.searchType.slice(1)}
                 </span>
-                <Trash
-                  className=" ml-4 hover:text-red-600 cursor-pointer size-5 hover:fill-red-600"
-                  onClick={() => handleDelete(entry)}
-                />
+                <span>
+                  <Trash
+                    className=" ml-4 hover:text-red-600 cursor-pointer size-5 hover:fill-red-600"
+                    onClick={() => handleDelete(entry)}
+                  />
+                </span>
               </div>
             );
           })}
