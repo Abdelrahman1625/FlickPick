@@ -87,7 +87,7 @@ function FavoritePage() {
                             
                             <div className="flex flex-col">
                                 <span className="text-lg text-white">
-                                    <Link to={`${`/watch/${entry?.id}`}`}>{entry.title}</Link>
+                                    <Link to={`${`/watch/${entry?.id}`}`}>{limitWords(entry.title , 6)}</Link>
                                     <span className={`text-sm text-white ml-2 bg-green-400 rounded p-0.5  ${getRatingClass(entry.rating)}`}>
                                         {entry.rating}
                                     </span>

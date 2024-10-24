@@ -32,7 +32,13 @@ function formatDate(dateString) {
   // Return the formatted date string
   return `${month} ${day}, ${year}`;
 }
-
+function limitWords(str, maxWords) {
+  let words = str.split(' ');
+  if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(' ') + '...';
+  }
+  return str;
+}
 function SearchHistoryPage() {
   const [searchHistory, setSearchHistory] = useState([]);
   useEffect(() => {
@@ -91,7 +97,7 @@ function SearchHistoryPage() {
                 />
                 <div className="flex flex-col">
                   <span className="text-lg text-white">
-                    <Link to={`${`/watch/${entry?.id}`}`}>{entry.title}</Link>
+                    <Link to={`${`/watch/${entry?.id}`}`}>{limitWords(entry.title,6)}</Link>
                   </span>
                   <span className="text-gray-400 text-sm">
                     {formatDate(entry.createdAt)}
@@ -110,7 +116,7 @@ function SearchHistoryPage() {
                     entry.searchType.slice(1)}
                 </span>
                 <Trash
-                  className="ml-4 hover:text-red-600 cursor-pointer size-5 hover:fill-red-600"
+                  className=" ml-4 hover:text-red-600 cursor-pointer size-5 hover:fill-red-600"
                   onClick={() => handleDelete(entry)}
                 />
               </div>
