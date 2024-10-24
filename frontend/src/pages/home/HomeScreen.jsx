@@ -19,7 +19,7 @@ const HomeScreen = () => {
     return (
       <div className="relative h-screen text-white">
         <Navbar />
-        <div className="top-0 left-0 -z-10 absolute flex justify-center items-center bg-black/70 w-full h-full shimmer" />
+        <div className="top-0 left-0 -z-10 absolute flex justify-center items-center bg-[#003245]/70 w-full h-full shimmer" />
       </div>
     );
   console.log(contentType);
@@ -31,7 +31,7 @@ const HomeScreen = () => {
 
         {/* COOL OPTIMIZATION HACK FOR IMAGES */}
         {imgLoading && (
-          <div className="top-0 left-0 -z-10 absolute flex justify-center items-center bg-black/70 w-full h-full shimmer" />
+          <div className="top-0 left-0 -z-10 absolute flex justify-center items-center bg-[#003245]/70 w-full h-full shimmer" />
         )}
 
         <img
@@ -44,7 +44,7 @@ const HomeScreen = () => {
         />
 
         <div
-          className="top-0 left-0 -z-50 absolute bg-black/50 w-full h-full"
+          className="top-0 left-0 -z-50 absolute bg-[#003245]/50 w-full h-full"
           aria-hidden="true"
         />
 
@@ -88,7 +88,7 @@ const HomeScreen = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10 bg-black py-10">
+      <div className="flex flex-col gap-10 bg-[#003245] py-10">
         {contentType === "movie"
           ? MOVIE_CATEGORIES.map((category) => (
               <MovieSlider key={category} category={category} />

@@ -16,7 +16,7 @@ const AuthScreen = () => {
         <Link to={"/"}>
           <img src="/flickpick.png" alt="Logo" className="w-52" />
         </Link>
-        <Link to={"/login"} className="bg-red-600 px-2 py-1 rounded text-white">
+        <Link to={"/login"} className="bg-[#003245] px-2 py-1 rounded text-white">
           Login
         </Link>
       </header>
@@ -39,11 +39,11 @@ const AuthScreen = () => {
           <input
             type="email"
             placeholder="Email address"
-            className="flex-1 border-gray-700 bg-black/80 p-2 border rounded"
+            className="flex-1 border-gray-700 bg-[#003245]/80 p-2 border rounded"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="flex justify-center bg-red-600 px-2 px-6 py-1 md:py-2 rounded text-xl lg:text-2xl lg:">
+          <button className="flex justify-center bg-[#022837] px-2 px-6 py-1 md:py-2 rounded text-xl lg:text-2xl lg:">
             Get Started
             {/* Arrow to the right */}
             <ChevronRight className="size-8 md: size-10" />
@@ -52,10 +52,10 @@ const AuthScreen = () => {
       </div>
 
       {/* separator  */}
-      <div className="bg-[#232323] w-full h-2" aria-hidden="true" />
+      <div className="bg-[#04202d] w-full h-2" aria-hidden="true" />
 
       {/* 1st Section */}
-      <div className="bg-black py-10 text-white">
+      <div className="bg-[#022837] py-10 text-white">
         {/* flex will be col in small but row in medium screen */}
         <div className="flex md:flex-row flex-col justify-center items-center mx-auto px-4 md:px-2 max-w-6xl">
           {/* left side */}
@@ -69,8 +69,8 @@ const AuthScreen = () => {
             </p>
           </div>
           {/* right side */}
-          <div className="relative flex-1">
-            <img src="/tv.png" alt="TV Image" className="relative z-20 mt-4" />
+          <div className="relative flex-1 ">
+            <img src="/tv.png" alt="TV Image" className="rounded-3xl relative z-20 mt-4" />
             <video
               className="top-1/2 left-1/2 z-0 absolute h-1/2 -translate-x-1/2 -translate-y-1/2"
               playsInline
@@ -84,24 +84,24 @@ const AuthScreen = () => {
         </div>
       </div>
       {/* separator  */}
-      <div className="bg-[#232323] w-full h-2" aria-hidden="true" />
+      <div className="bg-[#04202d] w-full h-2" aria-hidden="true" />
       {/* 2nd Section */}
-      <div className="bg-black py-10 text-white">
-        <div className="flex md:flex-row flex-col-reverse justify-center items-center mx-auto px-4 md:px-2 max-w-6xl">
+      <div className="bg-[#022837] py-10 text-white">
+        <div className="flex gap-8 md:flex-row flex-col-reverse justify-center items-center mx-auto px-4 md:px-2 max-w-6xl">
           {/* left side */}
           <div className="relative flex-1">
             <div className="relative">
               <img
                 src="/stranger-things-lg.png"
                 alt="Stranger Things img"
-                className="mt-4"
+                className="mt-4 rounded-3xl"
               />
             </div>
             <div className="bottom-5 left-1/2 absolute flex items-center gap-2 border-slate-500 bg-black px-2 rounded-md w-3/4 lg:w-1/2 h-24 -translate-x-1/2">
               <img
                 src="/stranger-things-sm.png"
                 alt="Stranger Things small img"
-                className="h-full"
+                className="h-full "
               />
               <div className="flex justify-between items-center w-full">
                 <div className="flex flex-col gap-0">
@@ -126,10 +126,10 @@ const AuthScreen = () => {
         </div>
       </div>
       {/* separator  */}
-      <div className="bg-[#232323] w-full h-2" aria-hidden="true" />
+      <div className="bg-[#04202d] w-full h-2" aria-hidden="true" />
       {/* 3rd Section */}
 
-      <div className="bg-black py-10 text-white">
+      <div className="bg-[#022837] py-10 text-white">
         {/* flex will be col in small but row in medium screen */}
         <div className="flex md:flex-row flex-col justify-center items-center mx-auto px-4 md:px-2 max-w-6xl">
           {/* left side */}
@@ -162,13 +162,13 @@ const AuthScreen = () => {
         </div>
       </div>
       {/* separator  */}
-      <div className="bg-[#232323] w-full h-2" aria-hidden="true" />
+      <div className="bg-[#04202d] w-full h-2" aria-hidden="true" />
 
       {/* 4th Section */}
-      <div className="bg-black py-10 text-white">
-        <div className="flex md:flex-row flex-col-reverse justify-center items-center mx-auto max-w-6xl">
+      <div className="bg-[#022837] py-10 text-white">
+        <div className="flex gap-8 md:flex-row flex-col-reverse justify-center items-center mx-auto max-w-6xl">
           <div className="relative flex-1">
-            <img src="/kids.png" alt="Enjoy on your TV" className="mt-4" />
+            <img src="/kids.png" alt="Enjoy on your TV" className="rounded-3xl mt-4" />
           </div>
           {/* right */}
           <div className="flex-1 text-center md:text-left">

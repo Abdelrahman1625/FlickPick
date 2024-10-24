@@ -166,14 +166,14 @@ const WatchPage = () => {
 
   if (loading)
     return (
-      <div className="bg-black p-10 min-h-screen">
+      <div className="bg-[#003245] p-10 min-h-screen">
         <WatchPageSkeleton />
       </div>
     );
 
   if (!content) {
     return (
-      <div className="bg-black h-screen text-white">
+      <div className="bg-[#003245] h-screen text-white">
         <div className="mx-auto max-w-6xl">
           <Navbar />
           <div className="mx-auto mt-40 px-4 py-8 h-full text-center">
@@ -187,7 +187,7 @@ const WatchPage = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-[#003245] min-h-screen text-white">
       <div className="mx-auto px-4 py-0 h-full container">
         <Navbar />
 
@@ -335,11 +335,11 @@ const WatchPage = () => {
               })}
 
               <ChevronRight
-                className="top-1/2 right-2 absolute bg-red-600 opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
+                className="top-1/2 right-2 absolute bg-[#003245] opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
                 onClick={scrollRight}
               />
               <ChevronLeft
-                className="top-1/2 left-2 absolute bg-red-600 opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
+                className="top-1/2 left-2 absolute bg-[#003245] opacity-0 group-hover:opacity-100 rounded-full w-8 h-8 text-white transition-all -translate-y-1/2 duration-300 cursor-pointer"
                 onClick={scrollLeft}
               />
             </div>
