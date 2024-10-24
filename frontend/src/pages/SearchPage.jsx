@@ -38,7 +38,7 @@ const SearchPage = () => {
       <div className="mx-auto px-4 py-12 container">
         <div className="flex justify-center gap-3 mb-4">
           <button
-            className={`py-2 px-4 rounded z-50 ${
+            className={`py-2 px-4 rounded ${
               activeTab === "movie" ? "bg-red-600" : "bg-gray-800"
             } hover:bg-red-700`}
             onClick={() => handleTabClick("movie")}
@@ -46,7 +46,7 @@ const SearchPage = () => {
             Movies
           </button>
           <button
-            className={`py-2 px-4 rounded z-50 ${
+            className={`py-2 px-4 rounded ${
               activeTab === "tv" ? "bg-red-600" : "bg-gray-800"
             } hover:bg-red-700`}
             onClick={() => handleTabClick("tv")}
@@ -54,7 +54,7 @@ const SearchPage = () => {
             TV Shows
           </button>
           <button
-            className={`py-2 px-4 rounded z-50 ${
+            className={`py-2 px-4 rounded ${
               activeTab === "person" ? "bg-red-600" : "bg-gray-800"
             } hover:bg-red-700`}
             onClick={() => handleTabClick("person")}
