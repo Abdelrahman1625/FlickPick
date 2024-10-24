@@ -29,6 +29,7 @@ function FavoritePage() {
         try {
             await axios.delete(`/api/v1/person/favorites/${entry.id}`);
             setFavorite((s) => s.filter((item) => item.id !== entry.id ));
+            toast.error(`${entry.title} has been removed successfully.`)
         } catch (error) {
             toast.error("Failed to delete search item");
             console.log(error)
@@ -37,17 +38,17 @@ function FavoritePage() {
     useEffect(()=>{
         const getFavorite = async () => {
             try {
+                
                 const res = await axios.get("/api/v1/person/favorites");
                 const favRes = res.data.data.map((element) => {
                     return {
                         id: element.content.id,
-                        title: element.content.title,
+                        title: element.content.title || element.content.name,
                         img: element.content.poster_path,
                         overview: element.content.overview,
                         rating: element.content.vote_average
                     }
                 });
-                console.log(favRes);
                 setFavorite(favRes);
             } catch (error) {
                 console.log(error.message);
@@ -89,7 +90,7 @@ function FavoritePage() {
                                 <span className="text-lg text-white">
                                     <Link to={`${`/watch/${entry?.id}`}`}>{entry.title}</Link>
                                     <span className={`text-sm text-white ml-2 bg-green-400 rounded p-0.5  ${getRatingClass(entry.rating)}`}>
-                                        {entry.rating}
+                                        {entry.rating.toFixed(1)}
                                     </span>
                                     
                                 </span>
@@ -97,10 +98,12 @@ function FavoritePage() {
                                     {limitWords(entry.overview , 30)}
                                 </span>
                             </div>
-                            <X
-                                className="translate-y-[-20px] ml-4 hover:text-red-600 cursor-pointer size-20 hover:fill-red-600 "
-                                onClick={() => handleDelete(entry)}
-                            />
+                            <span>
+                                <X
+                                    className="ml-4 hover:text-red-600 cursor-pointer size-5 hover:fill-red-600 "
+                                    onClick={() => handleDelete(entry)}
+                                />
+                            </span>
                         </div>
                         
                     )

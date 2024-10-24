@@ -97,7 +97,14 @@ const WatchPage = () => {
     const getFavorites = async () => {
       try {
         const res = await axios.get(`/api/v1/person/favorites`);
-        // console.log(res.data);
+        res.data.data.forEach((movie) => {
+          if(movie.id === id){
+            setIsFavorite(true)
+          }
+          else{
+            setIsFavorite(false)
+          }
+        })
       } catch (error) {
         if (error.response.status === 404) {
           toast.error("Nothing found unfortunately");
@@ -107,7 +114,7 @@ const WatchPage = () => {
       }
     };
     getFavorites();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getFavorites = async () => {
