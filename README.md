@@ -5,7 +5,7 @@ FlickPick is a comprehensive movies and TV shows library created for our DEPI fi
 
 ## Project Description
 
-FlickPick is designed to provide an intuitive and seamless experience for users to discover and manage their favorite movies and TV shows. With features like search history and a personalized favorites list, users can easily keep track of what they love. This project utilizes data from TMDB to fetch movie and TV show details.
+FlickPick is designed to provide an intuitive and seamless experience for users to discover and manage their favorite movies and TV shows. With features like search history and a personalized favorites list, users can easily keep track of what they love. This project utilizes data from TMDB to fetch movie and TV show details. You may find the presentation here: https://www.canva.com/design/DAGUfff0lHo/8uQVz6B6tQeTwnyf234C3g/edit.
 
 ## Technologies Used
 
